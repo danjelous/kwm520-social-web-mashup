@@ -17,6 +17,20 @@ let Mashup = (function WeatherMashup() {
 
     let getLocationAndWeather = () => {
 
+        // With AJAX and REST
+        let xhr = new XMLHttpRequest();
+
+        // Open async GET request
+        xhr.open('GET',
+            `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=6d27a14750ed990ad1f236ec2`,
+            true
+        );
+
+        // Callbacks for xhr request
+
+        // Actually send
+        xhr.send();
+
     };
 
     let init = () => {
