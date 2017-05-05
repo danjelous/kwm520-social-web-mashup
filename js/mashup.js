@@ -122,3 +122,8 @@ let Mashup = (function WeatherMashup() {
     init();
 
 })();
+
+// Global function by flickr
+jsonFlickrApi = (data) => {
+    console.log(data);
+}
