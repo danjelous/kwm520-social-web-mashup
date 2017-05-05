@@ -20,13 +20,18 @@ let Mashup = (function WeatherMashup() {
         // With AJAX and REST
         let xhr = new XMLHttpRequest();
 
+        // Callbacks for xhr request
+        xhr.addEventListener('load', () => {
+
+            let response = JSON.parse(xhr.responseText);
+            console.log(response);
+        });
+
         // Open async GET request
         xhr.open('GET',
-            `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=6d27a14750ed990ad1f236ec2`,
+            `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=6d27a14750ed96c42de990ad1f236ec2`,
             true
         );
-
-        // Callbacks for xhr request
 
         // Actually send
         xhr.send();
@@ -52,10 +57,14 @@ let Mashup = (function WeatherMashup() {
                     (position) => {
                         latitude = position.coords.latitude;
                         longitude = position.coords.longitude;
+
+                        // Get current weather;
+                        getLocationAndWeather();
                     },
 
                     // Error callback
                     (error) => {
+                        getLocationAndWeather();
 
                     }
                 );
