@@ -17,14 +17,14 @@ let Mashup = (function WeatherMashup() {
 
     let getLocationAndWeather = () => {
 
-    }
+    };
 
     let init = () => {
-        
+
         try {
 
             // Does the browser support geolocation?
-            if(typeof(navigator.geolocation) == 'undefined') {
+            if (typeof (navigator.geolocation) == 'undefined') {
 
                 // Alert <3
                 alert('Sorry, but location services are not supported by your browser!');
@@ -36,7 +36,8 @@ let Mashup = (function WeatherMashup() {
 
                     // Success callback
                     (position) => {
-
+                        latitude = position.coords.latitude;
+                        longitude = position.coords.longitude;
                     },
 
                     // Error callback
@@ -47,7 +48,7 @@ let Mashup = (function WeatherMashup() {
             }
 
         } catch (error) {
-            
+
         }
     }
 
