@@ -24,16 +24,17 @@ let Mashup = (function WeatherMashup() {
         xhr.addEventListener('load', () => {
 
             let response = JSON.parse(xhr.responseText);
-            
+
             let position = {
-                latitude: response.coord.lat;
-                longitude: response.coord.lon;
+                latitude: response.coord.lat,
+                longitude: response.coord.lon
             }
 
-            let city = response.name;
-            let weatherDescSimple = response.weather[0].main;
-            let weatherDesc = response.weather[0].description;
-            let temp = response.main.temp;
+            // Reassign API responses to local variables
+            weatherData.temperature.innerText = response.main.temp + weatherData.units + ' ';
+            weatherData.temperatureValue = response.main.temp;
+            weatherData.city.innerText = response.name;
+            weatherData.weather.innerText = response.weather[0].main + ", " + response.weather[0].description;
         });
 
         // Open async GET request
