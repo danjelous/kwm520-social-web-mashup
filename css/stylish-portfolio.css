@@ -149,8 +149,7 @@ hr.small {
 }
 
 /* Header */
-
-.header {
+main {
     display: table;
     position: relative;
     width: 100%;

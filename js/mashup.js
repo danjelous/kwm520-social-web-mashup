@@ -1,5 +1,7 @@
 "use-strict";
 
+//document.querySelector("main").style.background = "url('https://farm6.staticflickr.com/5772/22938195449_a38d938ce2_b.jpg') no-repeat center center scroll";
+
 // Mashup Module (IIF)
 let Mashup = (function WeatherMashup() {
 
@@ -43,7 +45,6 @@ let Mashup = (function WeatherMashup() {
 
         // Display
         weatherData.temperature.innerText = weatherData.temperatureValue + weatherData.units + ', ';
-        loadBackGround(position.latitude, position.longitude, weatherData.weather.split(','[0]));
     }
 
     let getLocationAndWeather = () => {
@@ -66,6 +67,9 @@ let Mashup = (function WeatherMashup() {
             weatherData.temperatureValue = response.main.temp;
             weatherData.city.innerText = response.name;
             weatherData.weather.innerText = response.weather[0].main + ', ' + response.weather[0].description;
+
+            // Get some sexy photos
+            loadBackGround(position.latitude, position.longitude, weatherData.weather.innerText.split(',')[0]);
         });
 
         // Open async GET request
@@ -119,11 +123,27 @@ let Mashup = (function WeatherMashup() {
         }
     }
 
+    // Run / init
     init();
+
+    // Expose methods (module pattern)
+    return {
+        getLocation: getLocationAndWeather,
+        loadBackGround: loadBackGround,
+        lat: latitude,
+        lon: longitude
+    }
 
 })();
 
 // Global function by flickr
 jsonFlickrApi = (data) => {
-    console.log(data);
+
+    if (data.photos.pages > 0) {
+        let photo = data.photos.photo[0];
+        let flickrUrl = "url('" + photo.url_l + "') no-repeat center center scroll";
+        document.querySelector('main').style.background = flickrUrl;
+    } else {
+        Machup.loadBackGround(Mashup.lat, Mashup.lon);
+    }
 }
