@@ -15,6 +15,21 @@ let Mashup = (function WeatherMashup() {
         units: 'K'
     }
 
+    let switchTemparatureUnits = () => {
+
+        // Calculate
+        if (weatherData.units === 'K') {
+            weatherData.units = '°C';
+            weatherData.temperatureValue -= 273.15;
+        } else {
+            weatherData.units = 'K';
+            weatherData.temperatureValue += 273.15;
+        }
+
+        // Display
+        weatherData.temperature.innerText = weatherData.temperatureValue + weatherData.units + ', ';
+    }
+
     let getLocationAndWeather = () => {
 
         // With AJAX and REST
@@ -31,10 +46,10 @@ let Mashup = (function WeatherMashup() {
             }
 
             // Reassign API responses to local variables
-            weatherData.temperature.innerText = response.main.temp + weatherData.units + ' ';
+            weatherData.temperature.innerText = response.main.temp + weatherData.units + ', ';
             weatherData.temperatureValue = response.main.temp;
             weatherData.city.innerText = response.name;
-            weatherData.weather.innerText = response.weather[0].main + ", " + response.weather[0].description;
+            weatherData.weather.innerText = response.weather[0].main + ', ' + response.weather[0].description;
         });
 
         // Open async GET request
@@ -50,6 +65,9 @@ let Mashup = (function WeatherMashup() {
     };
 
     let init = () => {
+
+        // Register click handler
+        document.getElementById('temperature').onclick = switchTemparatureUnits;
 
         try {
 
