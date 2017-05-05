@@ -24,11 +24,21 @@ let Mashup = (function WeatherMashup() {
         xhr.addEventListener('load', () => {
 
             let response = JSON.parse(xhr.responseText);
-            console.log(response);
+            
+            let position = {
+                latitude: response.coord.lat;
+                longitude: response.coord.lon;
+            }
+
+            let city = response.name;
+            let weatherDescSimple = response.weather[0].main;
+            let weatherDesc = response.weather[0].description;
+            let temp = response.main.temp;
         });
 
         // Open async GET request
-        xhr.open('GET',
+        xhr.open(
+            'GET',
             `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=6d27a14750ed96c42de990ad1f236ec2`,
             true
         );
