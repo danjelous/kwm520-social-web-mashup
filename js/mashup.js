@@ -15,6 +15,21 @@ let Mashup = (function WeatherMashup() {
         units: 'K'
     }
 
+    let loadBackGround = (lat, lon, tag) => {
+
+        let script_element = document.createElement('script');
+
+        if (tag) {
+            script_element.src = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=48d407d1124ad4caaaa30624372789f7&lat=" +
+                lat + "&lon=" + lon + "&accuracy=1&tags=" + tag + "&sort=relevance&extras=url_l&format=json";
+        } else {
+            script_element.src = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=48d407d1124ad4caaaa30624372789f7&lat=" +
+                lat + "&lon=" + lon + "&accuracy=1&sort=relevance&extras=url_l&format=json";
+        }
+
+        document.getElementsByTagName('head')[0].appendChild(script_element);
+    }
+
     let switchTemparatureUnits = () => {
 
         // Calculate
@@ -28,6 +43,7 @@ let Mashup = (function WeatherMashup() {
 
         // Display
         weatherData.temperature.innerText = weatherData.temperatureValue + weatherData.units + ', ';
+        loadBackGround(position.latitude, position.longitude, weatherData.weather.split(','[0]));
     }
 
     let getLocationAndWeather = () => {
@@ -61,7 +77,6 @@ let Mashup = (function WeatherMashup() {
 
         // Actually send
         xhr.send();
-
     };
 
     let init = () => {
